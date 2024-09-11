@@ -53,8 +53,14 @@ public class Call: NSObject {
             
         }
     }
+
+    var hasAccepted: Bool = false {
+        didSet {
+            stateDidChange?()
+        }
+    }
     
-    var hasStartedConnecting: Bool{
+    var hasStartedConnecting: Bool {
         get{
             return connectData != nil
         }
@@ -123,7 +129,18 @@ public class Call: NSObject {
         
     }
     
-    
+    func toJSON() -> [String: Any] {
+        var data = self.data.toJSON()
+        data["status"] = [
+            "hasAccepted": hasAccepted,
+            "hasStartedConnecting": hasStartedConnecting,
+            "hasConnected": hasConnected,
+            "hasEnded": hasEnded,
+            "isOnHold": isOnHold,
+            "isMuted": isMuted
+        ]
+        return data
+    }
 }
 
 @objc public class Data: NSObject {
