@@ -31,6 +31,8 @@ fun addCall(context: Context?, data: Data, isAccepted: Boolean = false) {
 
 fun removeCall(context: Context?, data: Data) {
     val json = getString(context, "ACTIVE_CALLS", "[]")
+    data.hasEnded = true
+
     Log.d("JSON", json!!)
     val arrayData: ArrayList<Data> = Utils.getGsonInstance()
         .readValue(json, object : TypeReference<ArrayList<Data>>() {})

@@ -90,6 +90,23 @@ data class Data(val args: Map<String, Any?>) {
     @JsonProperty("isBot")
     var isBot: Boolean = false
 
+    @JsonProperty("hasStartedConnecting")
+    var hasStartedConnecting: Boolean = false
+    @JsonProperty("hasConnected")
+    var hasConnected: Boolean = false
+    @JsonProperty("hasEnded")
+    var hasEnded: Boolean = false
+
+    @get:JsonProperty("status")
+    val status: Map<String, Any?> get() = hashMapOf(
+        "hasAccepted" to isAccepted,
+        "hasStartedConnecting" to hasStartedConnecting,
+        "hasConnected" to hasConnected,
+        "hasEnded" to hasEnded,
+        "isOnHold" to isOnHold,
+        "isMuted" to isMuted,
+    )
+
     init {
         var android: Map<String, Any?>? = args["android"] as? HashMap<String, Any?>?
         android = android ?: args
